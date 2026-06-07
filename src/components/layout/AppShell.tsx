@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import { Sidebar } from "@/components/layout/Sidebar";
 import { Topbar } from "@/components/layout/Topbar";
 import { TimerEngine } from "@/components/layout/TimerEngine";
@@ -12,6 +13,12 @@ export interface AppShellProps {
 
 export function AppShell({ children }: AppShellProps) {
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const pathname = usePathname();
+
+  // Auth screens render full-bleed, without the sidebar/top bar.
+  if (pathname === "/login" || pathname === "/signup") {
+    return <>{children}</>;
+  }
 
   return (
     <div className="flex h-screen overflow-hidden">

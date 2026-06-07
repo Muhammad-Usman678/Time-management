@@ -1,9 +1,11 @@
 import { PrismaClient } from "@prisma/client";
+import { hashPassword } from "../src/lib/password";
 
 const prisma = new PrismaClient();
 
 const DEMO_USER_ID = "demo-user";
-const DEMO_USER_EMAIL = "phd@example.com";
+const DEMO_USER_EMAIL = "demo@example.com";
+const DEMO_USER_PASSWORD = "password123";
 
 // Helpers ---------------------------------------------------------------------
 const DAY = 24 * 60 * 60 * 1000;
@@ -26,10 +28,16 @@ async function main() {
   console.log("🌱 Seeding database…");
 
   // Reset demo user's data for a clean, repeatable seed.
+  const passwordHash = hashPassword(DEMO_USER_PASSWORD);
   await prisma.user.upsert({
     where: { id: DEMO_USER_ID },
-    update: { name: "PhD Researcher" },
-    create: { id: DEMO_USER_ID, email: DEMO_USER_EMAIL, name: "PhD Researcher" },
+    update: { name: "Demo User", email: DEMO_USER_EMAIL, passwordHash },
+    create: {
+      id: DEMO_USER_ID,
+      email: DEMO_USER_EMAIL,
+      name: "Demo User",
+      passwordHash,
+    },
   });
   await prisma.focusSession.deleteMany({ where: { userId: DEMO_USER_ID } });
   await prisma.meeting.deleteMany({ where: { userId: DEMO_USER_ID } });
@@ -244,6 +252,7 @@ async function main() {
   console.log(
     `✅ Seeded: ${taskSpecs.length} tasks, ${tagData.length} tags, 4 meetings, ${sessions.length} focus sessions.`
   );
+  console.log(`👤 Demo login → ${DEMO_USER_EMAIL} / ${DEMO_USER_PASSWORD}`);
 }
 
 main()

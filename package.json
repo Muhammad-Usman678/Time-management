@@ -1,8 +1,8 @@
 {
-  "name": "phd-productivity",
+  "name": "momentum",
   "version": "1.0.0",
   "private": true,
-  "description": "A distraction-free productivity system for PhD students: tasks, focus timers, meetings, and analytics.",
+  "description": "Momentum — a distraction-free productivity workspace: tasks, focus timers, meetings, and analytics.",
   "scripts": {
     "dev": "next dev",
     "build": "prisma generate && next build",

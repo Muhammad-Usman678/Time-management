@@ -5,13 +5,14 @@ import { usePathname } from "next/navigation";
 import {
   BarChart3,
   CalendarDays,
-  GraduationCap,
   LayoutDashboard,
   ListChecks,
   Timer,
+  Zap,
   type LucideIcon,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { APP_NAME } from "@/lib/app";
 
 interface NavItem {
   label: string;
@@ -37,10 +38,8 @@ export function Sidebar({ onNavigate }: SidebarProps) {
   return (
     <div className="flex h-full w-64 flex-col border-r border-border bg-card">
       <div className="flex h-14 items-center gap-2 border-b border-border px-5">
-        <GraduationCap className="text-primary" size={22} />
-        <span className="text-sm font-semibold tracking-tight">
-          PhD Productivity
-        </span>
+        <Zap className="text-primary" size={22} />
+        <span className="text-sm font-semibold tracking-tight">{APP_NAME}</span>
       </div>
 
       <nav className="flex flex-1 flex-col gap-1 p-3">

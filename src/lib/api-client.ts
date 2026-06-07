@@ -33,6 +33,16 @@ async function request<T>(
 
   if (!res.ok) {
     const body = data as ApiError | undefined;
+    // A 401 on a non-auth endpoint means the session expired — bounce to login
+    // (skip auth endpoints themselves so failed logins don't loop).
+    if (
+      res.status === 401 &&
+      typeof window !== "undefined" &&
+      !path.startsWith("/api/auth/") &&
+      !["/login", "/signup"].some((p) => window.location.pathname.startsWith(p))
+    ) {
+      window.location.href = "/login";
+    }
     throw new ApiClientError(
       body?.error ?? `Request failed (${res.status})`,
       res.status,

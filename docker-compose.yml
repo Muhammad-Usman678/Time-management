@@ -1,26 +1,25 @@
 # Optional: one-command PostgreSQL for the production-style stack.
 # Usage:
 #   docker compose up -d
-#   # then in prisma/schema.prisma set provider = "postgresql"
-#   # and in .env set DATABASE_URL to the connection string below.
+#   # then set DATABASE_PROVIDER=postgresql and DATABASE_URL in .env
 services:
   db:
     image: postgres:16-alpine
-    container_name: phd_productivity_db
+    container_name: momentum_db
     restart: unless-stopped
     environment:
-      POSTGRES_USER: phd
-      POSTGRES_PASSWORD: phd
-      POSTGRES_DB: phd_productivity
+      POSTGRES_USER: momentum
+      POSTGRES_PASSWORD: momentum
+      POSTGRES_DB: momentum
     ports:
       - "5432:5432"
     volumes:
-      - phd_pgdata:/var/lib/postgresql/data
+      - momentum_pgdata:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U phd -d phd_productivity"]
+      test: ["CMD-SHELL", "pg_isready -U momentum -d momentum"]
       interval: 5s
       timeout: 5s
       retries: 5
 
 volumes:
-  phd_pgdata:
+  momentum_pgdata:

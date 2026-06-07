@@ -5,6 +5,22 @@ import { z } from "zod";
 // AND client-side form validation (react-hook-form resolvers).
 // -----------------------------------------------------------------------------
 
+// ---- Auth -------------------------------------------------------------------
+
+export const signupSchema = z.object({
+  name: z.string().trim().min(1, "Name is required").max(80),
+  email: z.string().trim().toLowerCase().email("Enter a valid email").max(200),
+  password: z.string().min(8, "Use at least 8 characters").max(200),
+});
+
+export const loginSchema = z.object({
+  email: z.string().trim().toLowerCase().email("Enter a valid email").max(200),
+  password: z.string().min(1, "Password is required").max(200),
+});
+
+export type SignupInput = z.infer<typeof signupSchema>;
+export type LoginInput = z.infer<typeof loginSchema>;
+
 export const prioritySchema = z.enum(["low", "medium", "high"]);
 export const taskStatusSchema = z.enum(["todo", "in_progress", "done"]);
 export const linkTypeSchema = z.enum(["zoom", "meet", "custom", "none"]);

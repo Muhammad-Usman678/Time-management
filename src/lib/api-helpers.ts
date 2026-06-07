@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { ZodError, type ZodSchema } from "zod";
+import { UnauthorizedError } from "@/lib/errors";
 
 // -----------------------------------------------------------------------------
 // Shared helpers for Route Handlers: consistent JSON success/error envelopes,
@@ -34,6 +35,9 @@ export async function parseBody<T>(
 
 /** Maps thrown errors to a JSON response. Use in every route's catch block. */
 export function handleError(error: unknown): NextResponse {
+  if (error instanceof UnauthorizedError) {
+    return jsonError("Unauthorized", 401);
+  }
   if (error instanceof ZodError) {
     return jsonError("Validation failed", 422, error.flatten());
   }

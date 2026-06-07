@@ -4,6 +4,7 @@ import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { MiniTimer } from "@/components/layout/MiniTimer";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
+import { UserMenu } from "@/components/layout/UserMenu";
 
 export interface TopbarProps {
   onMenu: () => void;
@@ -27,6 +28,7 @@ export function Topbar({ onMenu }: TopbarProps) {
       <div className="flex items-center gap-2">
         <MiniTimer />
         <ThemeToggle />
+        <UserMenu />
       </div>
     </header>
   );

@@ -1,4 +1,4 @@
-// PhD Productivity — data model
+// Momentum — data model
 // -----------------------------------------------------------------------------
 // Default provider is SQLite for zero-setup local development.
 // For production, switch `provider` to "postgresql" and point DATABASE_URL at a
@@ -18,16 +18,30 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(cuid())
-  email     String   @unique
-  name      String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id           String   @id @default(cuid())
+  email        String   @unique
+  name         String?
+  passwordHash String? // null only for legacy/demo accounts
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 
   tasks         Task[]
   tags          Tag[]
   meetings      Meeting[]
   focusSessions FocusSession[]
+  sessions      Session[]
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  token     String   @unique
+  userId    String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
 }
 
 model Task {

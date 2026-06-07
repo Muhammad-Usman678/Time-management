@@ -1,6 +1,6 @@
-# 🎓 PhD Productivity
+# ⚡ Momentum
 
-A distraction-free, production-ready productivity system for PhD students — **tasks, focus timers, meetings, a daily dashboard, and analytics** — in one calm, Notion-meets-Todoist-meets-Google-Calendar workspace.
+A distraction-free, production-ready productivity workspace — **tasks, focus timers, meetings, a daily dashboard, and analytics** — in one calm, Notion-meets-Todoist-meets-Google-Calendar app. Multi-user with email + password accounts; each person's data is fully private.
 
 Built with **Next.js 14 (App Router) · TypeScript · Prisma · Tailwind CSS · React Query · Zustand**.
 
@@ -50,7 +50,7 @@ Built with **Next.js 14 (App Router) · TypeScript · Prisma · Tailwind CSS · 
 - **Next.js 14 (App Router)** — frontend + backend in one project; file‑based routing; Route Handlers give a clean REST surface; trivial to deploy (Vercel, Docker, Node). Server Components keep the bundle lean; Client Components handle interactivity.
 - **TypeScript end‑to‑end** — one set of domain types (`src/lib/types.ts`) flows from the DB serializers to the React components.
 - **Prisma** — type‑safe queries and migrations. The schema is intentionally **portable**: enum‑like fields are strings (validated by Zod) and tags are a real join table, so it runs **identically on SQLite and PostgreSQL** — change one line to go to production.
-- **SQLite by default** — the app runs with *zero* external services (`npm run setup && npm run dev`). For a single‑user PhD tool this is genuinely production‑viable; the documented PostgreSQL path is there the moment you want hosted/multi‑user.
+- **SQLite by default** — the app runs with *zero* external services (`npm run setup && npm run dev`). Genuinely production‑viable for small deployments; the documented PostgreSQL path is there the moment you want hosted/at‑scale.
 - **React Query** — server‑state caching, background refetch, and cache invalidation (the timer engine invalidates dashboard/analytics when a session is logged).
 - **Zustand** — a tiny global store for the timer so it survives navigation and shows in the top bar, focus page, and dashboard at once. Drift‑free (derives remaining time from a wall‑clock target) and persisted to `localStorage`.
 - **Tailwind + CSS‑variable design tokens** — light/dark theming with no className churn; calm academic palette.
@@ -61,7 +61,8 @@ Built with **Next.js 14 (App Router) · TypeScript · Prisma · Tailwind CSS · 
 ## 🗄️ Database schema
 
 ```prisma
-User           id, email (unique), name?, createdAt, updatedAt
+User           id, email (unique), name?, passwordHash?, createdAt, updatedAt
+Session        id, token (unique), userId→User, expiresAt, createdAt
 Task           id, userId→User, title, description?, priority, status,
                deadline?, isDaily, lastResetAt?, completedAt?, sortOrder,
                createdAt, updatedAt          ── tags[], focusSessions[]
@@ -111,7 +112,7 @@ All routes live under `src/app/api`, are scoped to the current user, validate in
 ## 🗂️ Folder structure
 
 ```
-phd-productivity/
+momentum/
 ├── prisma/
 │   ├── schema.prisma          # data model (SQLite ⇄ Postgres)
 │   └── seed.ts                # demo user, tasks, tags, meetings, 12 days of focus
@@ -207,9 +208,16 @@ or query changes — the schema is portable by design.
 
 ---
 
-## 🔐 Authentication (optional, by design)
+## 🔐 Authentication (multi-user, email + password)
 
-The app ships **single‑user**: `getCurrentUserId()` resolves to a stable demo user, and **every table already carries `userId`**. To enable real multi‑user auth, install Auth.js (NextAuth v5), add the Prisma adapter + a provider, and swap the body of [`src/lib/auth.ts`](src/lib/auth.ts) to return `session.user.id`. No schema or query changes are needed — the data model is multi‑tenant from day one.
+The app is **multi-user**: visitors sign up with **email + password**, and every account only ever sees its own data (all queries are scoped by `userId`).
+
+- Passwords are hashed with Node's built-in **scrypt** (salted, constant-time compare) — no third-party auth dependency.
+- Sessions are **database-backed** (a random opaque token in an `httpOnly` cookie → a `Session` row), so they're revocable on logout and need no signing secret.
+- [`src/middleware.ts`](src/middleware.ts) gates page routes (unauthenticated → `/login`); API routes return `401` via `getCurrentUserId()`, and the client bounces to `/login` on expiry.
+- Auth surface: `POST /api/auth/signup` · `POST /api/auth/login` · `POST /api/auth/logout` · `GET /api/auth/me`; UI at `/login` and `/signup`.
+
+Local demo login (after `npm run db:seed`): **demo@example.com / password123**.
 
 ---
 
