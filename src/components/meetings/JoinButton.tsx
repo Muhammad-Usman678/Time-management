@@ -25,9 +25,13 @@ export function JoinButton({ meeting, size = "sm", className }: JoinButtonProps)
       href={meeting.link}
       target="_blank"
       rel="noopener noreferrer"
-      className={cn(buttonVariants({ variant: "default", size }), className)}
+      className={cn(
+        buttonVariants({ variant: "default", size }),
+        "shrink-0 font-medium",
+        className
+      )}
     >
-      <Video size={16} />
+      <Video size={16} className="shrink-0" />
       {label}
     </a>
   );

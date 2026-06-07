@@ -14,7 +14,7 @@ export function TagChip({ tag, onRemove, className }: TagChipProps) {
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-xs font-medium",
+        "inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-xs font-medium tracking-tight transition-all duration-200",
         className
       )}
       style={{
@@ -25,7 +25,7 @@ export function TagChip({ tag, onRemove, className }: TagChipProps) {
       }}
     >
       <span
-        className="h-1.5 w-1.5 rounded-full"
+        className="h-1.5 w-1.5 rounded-full ring-2 ring-current/15"
         style={{ backgroundColor: tag.color }}
         aria-hidden
       />
@@ -35,7 +35,7 @@ export function TagChip({ tag, onRemove, className }: TagChipProps) {
           type="button"
           onClick={onRemove}
           aria-label={`Remove ${tag.name}`}
-          className="-mr-0.5 ml-0.5 inline-flex items-center justify-center rounded-full opacity-70 transition-opacity hover:opacity-100 outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          className="-mr-1 ml-0.5 inline-flex h-4 w-4 items-center justify-center rounded-full opacity-70 transition-all duration-200 hover:bg-current/10 hover:opacity-100 active:scale-90 outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >
           <X size={12} />
         </button>

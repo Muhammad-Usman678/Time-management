@@ -57,8 +57,10 @@ export function TagSelector({ value, onChange }: TagSelectorProps) {
                 type="button"
                 onClick={() => toggle(tag.id)}
                 className={cn(
-                  "inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-xs font-medium transition-colors outline-none focus-visible:ring-2 focus-visible:ring-ring",
-                  !selected && "border-border text-foreground hover:bg-secondary"
+                  "inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-xs font-medium tracking-tight transition-all duration-200 active:scale-[0.97] outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                  selected
+                    ? "shadow-soft"
+                    : "border-border text-foreground hover:bg-secondary"
                 )}
                 style={
                   selected
@@ -90,7 +92,7 @@ export function TagSelector({ value, onChange }: TagSelectorProps) {
       )}
 
       {creating ? (
-        <div className="flex flex-col gap-2 rounded-md border border-border p-2">
+        <div className="flex animate-scale-in flex-col gap-2.5 rounded-lg border border-border bg-secondary/40 p-3">
           <Input
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -111,9 +113,9 @@ export function TagSelector({ value, onChange }: TagSelectorProps) {
                 aria-label={`Pick color ${preset}`}
                 onClick={() => setColor(preset)}
                 className={cn(
-                  "h-6 w-6 rounded-full border-2 transition-transform outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                  "h-6 w-6 rounded-full border-2 transition-all duration-200 hover:scale-110 outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
                   color === preset
-                    ? "border-foreground scale-110"
+                    ? "border-foreground scale-110 shadow-soft"
                     : "border-transparent"
                 )}
                 style={{ backgroundColor: preset }}
@@ -147,7 +149,7 @@ export function TagSelector({ value, onChange }: TagSelectorProps) {
           type="button"
           variant="ghost"
           size="sm"
-          className="self-start text-muted-foreground"
+          className="self-start rounded-full border border-dashed border-border text-muted-foreground hover:border-primary/40 hover:text-primary"
           onClick={() => setCreating(true)}
         >
           <Plus size={14} />

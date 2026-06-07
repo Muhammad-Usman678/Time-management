@@ -24,11 +24,13 @@ export default function AnalyticsPage() {
   const { data, isLoading, isError } = useAnalytics(range);
 
   return (
-    <div className="space-y-6">
+    <div className="animate-fade-in space-y-8">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div>
-          <h1 className="text-2xl font-semibold tracking-tight">Analytics</h1>
-          <p className="mt-1 text-sm text-muted-foreground">
+          <h1 className="text-gradient text-3xl font-semibold tracking-tight">
+            Analytics
+          </h1>
+          <p className="mt-1.5 text-sm text-muted-foreground">
             How your focus time and progress trend over time.
           </p>
         </div>
@@ -38,7 +40,7 @@ export default function AnalyticsPage() {
       {isLoading && <LoadingState />}
 
       {isError && !isLoading && (
-        <Card>
+        <Card className="animate-fade-in">
           <CardContent className="py-12">
             <EmptyState
               icon={BarChart3}
@@ -50,7 +52,7 @@ export default function AnalyticsPage() {
       )}
 
       {data && !isLoading && (
-        <>
+        <div className="animate-fade-in space-y-8">
           <AnalyticsSummary data={data} />
 
           {data.totalSessions === 0 ? (
@@ -64,8 +66,8 @@ export default function AnalyticsPage() {
               </CardContent>
             </Card>
           ) : (
-            <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-              <Card>
+            <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
+              <Card className="card-hover">
                 <CardHeader>
                   <CardTitle>Focus time</CardTitle>
                 </CardHeader>
@@ -74,7 +76,7 @@ export default function AnalyticsPage() {
                 </CardContent>
               </Card>
 
-              <Card>
+              <Card className="card-hover">
                 <CardHeader>
                   <CardTitle>Most productive hours</CardTitle>
                 </CardHeader>
@@ -83,7 +85,7 @@ export default function AnalyticsPage() {
                 </CardContent>
               </Card>
 
-              <Card>
+              <Card className="card-hover">
                 <CardHeader>
                   <CardTitle>Task completion</CardTitle>
                 </CardHeader>
@@ -95,7 +97,7 @@ export default function AnalyticsPage() {
                 </CardContent>
               </Card>
 
-              <Card>
+              <Card className="card-hover">
                 <CardHeader>
                   <CardTitle>Focus by tag</CardTitle>
                 </CardHeader>
@@ -105,7 +107,7 @@ export default function AnalyticsPage() {
               </Card>
             </div>
           )}
-        </>
+        </div>
       )}
     </div>
   );
@@ -113,15 +115,15 @@ export default function AnalyticsPage() {
 
 function LoadingState() {
   return (
-    <div className="space-y-6">
-      <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+    <div className="animate-fade-in space-y-8">
+      <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
         {Array.from({ length: 4 }).map((_, i) => (
-          <Skeleton key={i} className="h-[72px]" />
+          <Skeleton key={i} className="h-[96px] rounded-xl" />
         ))}
       </div>
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+      <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
         {Array.from({ length: 4 }).map((_, i) => (
-          <Skeleton key={i} className="h-[332px]" />
+          <Skeleton key={i} className="h-[360px] rounded-xl" />
         ))}
       </div>
     </div>

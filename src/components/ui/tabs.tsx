@@ -21,7 +21,7 @@ export function Tabs({ tabs, value, onValueChange, className }: TabsProps) {
     <div
       role="tablist"
       className={cn(
-        "inline-flex items-center gap-1 rounded-lg bg-muted p-1",
+        "inline-flex items-center gap-1 rounded-lg bg-muted/70 p-1",
         className
       )}
     >
@@ -36,9 +36,9 @@ export function Tabs({ tabs, value, onValueChange, className }: TabsProps) {
             aria-selected={active}
             onClick={() => onValueChange(tab.value)}
             className={cn(
-              "inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium transition-colors outline-none focus-visible:ring-2 focus-visible:ring-ring",
+              "inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium transition-all duration-200 outline-none focus-visible:ring-2 focus-visible:ring-ring/60",
               active
-                ? "bg-background text-foreground shadow-sm"
+                ? "bg-card text-foreground shadow-soft"
                 : "text-muted-foreground hover:text-foreground"
             )}
           >

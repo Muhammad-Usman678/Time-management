@@ -30,32 +30,39 @@ export function WeekView({ meetings }: WeekViewProps) {
           <div
             key={day.toISOString()}
             className={cn(
-              "flex flex-col rounded-lg border border-border bg-card p-2",
-              today && "ring-2 ring-ring"
+              "flex flex-col overflow-hidden rounded-xl border border-border bg-card shadow-soft transition-all duration-200",
+              today && "ring-2 ring-ring/60 shadow-glow"
             )}
           >
-            <div className="mb-2 flex items-baseline justify-between gap-1 px-1">
+            <div
+              className={cn(
+                "flex items-baseline justify-between gap-1 border-b border-border/70 px-3 py-2",
+                today
+                  ? "brand-gradient text-primary-foreground"
+                  : "bg-secondary/40"
+              )}
+            >
               <span
                 className={cn(
-                  "text-xs font-semibold uppercase tracking-wide",
-                  today ? "text-primary" : "text-muted-foreground"
+                  "text-xs font-semibold uppercase tracking-wider",
+                  today ? "text-primary-foreground/90" : "text-muted-foreground"
                 )}
               >
                 {format(day, "EEE")}
               </span>
               <span
                 className={cn(
-                  "text-sm font-medium",
-                  today ? "text-foreground" : "text-muted-foreground"
+                  "text-sm font-semibold tabular-nums",
+                  today ? "text-primary-foreground" : "text-foreground"
                 )}
               >
                 {format(day, "M/d")}
               </span>
             </div>
 
-            <div className="flex flex-1 flex-col gap-2">
+            <div className="flex flex-1 flex-col gap-2 p-2">
               {dayMeetings.length === 0 ? (
-                <p className="px-1 py-2 text-xs text-muted-foreground/60">
+                <p className="px-1 py-3 text-center text-xs text-muted-foreground/50">
                   No meetings
                 </p>
               ) : (
@@ -66,14 +73,14 @@ export function WeekView({ meetings }: WeekViewProps) {
                     <div
                       key={meeting.id}
                       className={cn(
-                        "flex flex-col gap-1.5 rounded-md border border-border bg-background p-2",
-                        isPast && "opacity-60"
+                        "group flex flex-col gap-1.5 rounded-lg border border-border bg-background p-2 transition-all duration-200 hover:border-primary/40 hover:shadow-soft",
+                        isPast && "opacity-60 hover:opacity-100"
                       )}
                     >
-                      <span className="text-[11px] font-medium text-muted-foreground">
+                      <span className="inline-flex w-fit items-center rounded-full bg-primary/10 px-2 py-0.5 text-[11px] font-medium tabular-nums text-primary">
                         {formatTime(meeting.dateTime)}
                       </span>
-                      <span className="line-clamp-2 text-xs font-medium text-foreground">
+                      <span className="line-clamp-2 text-xs font-medium leading-snug text-foreground">
                         {meeting.title}
                       </span>
                       {meeting.link && (

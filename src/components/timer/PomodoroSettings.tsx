@@ -83,7 +83,12 @@ export function PomodoroSettings() {
 
   return (
     <>
-      <Button variant="ghost" size="sm" onClick={() => setOpen(true)}>
+      <Button
+        variant="ghost"
+        size="sm"
+        onClick={() => setOpen(true)}
+        className="rounded-full text-muted-foreground hover:text-foreground"
+      >
         <Settings size={16} />
         Settings
       </Button>
@@ -104,11 +109,16 @@ export function PomodoroSettings() {
           </>
         }
       >
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-5">
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             {NUMERIC_FIELDS.map((field) => (
               <div key={field.key} className="flex flex-col gap-1.5">
-                <Label htmlFor={`setting-${field.key}`}>{field.label}</Label>
+                <Label
+                  htmlFor={`setting-${field.key}`}
+                  className="text-xs font-medium uppercase tracking-wide text-muted-foreground"
+                >
+                  {field.label}
+                </Label>
                 <Input
                   id={`setting-${field.key}`}
                   type="number"
@@ -128,22 +138,24 @@ export function PomodoroSettings() {
             ))}
           </div>
 
-          <div className="flex flex-col gap-3 border-t border-border pt-4">
-            <div className="flex items-center gap-2">
+          <div className="flex flex-col gap-3 border-t border-border pt-5">
+            <div className="flex items-center gap-2.5 rounded-lg bg-secondary/50 px-3 py-2.5 transition-colors hover:bg-secondary">
               <Checkbox
                 id="auto-breaks"
                 checked={autoStartBreaks}
                 onCheckedChange={setAutoStartBreaks}
               />
-              <Label htmlFor="auto-breaks">Auto-start breaks</Label>
+              <Label htmlFor="auto-breaks" className="cursor-pointer">
+                Auto-start breaks
+              </Label>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2.5 rounded-lg bg-secondary/50 px-3 py-2.5 transition-colors hover:bg-secondary">
               <Checkbox
                 id="auto-pomodoros"
                 checked={autoStartPomodoros}
                 onCheckedChange={setAutoStartPomodoros}
               />
-              <Label htmlFor="auto-pomodoros">
+              <Label htmlFor="auto-pomodoros" className="cursor-pointer">
                 Auto-start focus blocks after breaks
               </Label>
             </div>

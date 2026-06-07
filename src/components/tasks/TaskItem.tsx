@@ -9,7 +9,7 @@ import { Select } from "@/components/ui/select";
 import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 import { PriorityBadge } from "@/components/tasks/PriorityBadge";
 import { TagChip } from "@/components/tasks/TagChip";
-import { cn, formatDuration } from "@/lib/utils";
+import { cn, formatDuration, PRIORITY_DOT } from "@/lib/utils";
 import { deadlineInfo } from "@/lib/dates";
 import { STATUS_LABELS, TASK_STATUSES, type Task, type TaskStatus } from "@/lib/types";
 import { useDeleteTask, useToggleTaskStatus } from "@/hooks/useTasks";
@@ -36,7 +36,22 @@ export function TaskItem({ task, onEdit }: TaskItemProps) {
   }
 
   return (
-    <div className="flex items-start gap-3 px-4 py-3">
+    <div
+      className={cn(
+        "group relative flex items-start gap-3 overflow-hidden rounded-xl border border-border bg-card px-4 py-3.5 pl-5 shadow-soft card-hover",
+        done && "opacity-75"
+      )}
+    >
+      {/* Left priority accent bar. */}
+      <span
+        className={cn(
+          "absolute inset-y-0 left-0 w-1 rounded-r-full transition-opacity",
+          PRIORITY_DOT[task.priority],
+          done && "opacity-40"
+        )}
+        aria-hidden
+      />
+
       <div className="pt-0.5">
         <Checkbox
           checked={done}
@@ -58,12 +73,12 @@ export function TaskItem({ task, onEdit }: TaskItemProps) {
             {task.title}
           </label>
 
-          {/* Edit + delete, kept compact on the right. */}
-          <div className="flex shrink-0 items-center gap-0.5">
+          {/* Edit + delete, kept compact on the right; fade in on hover/focus. */}
+          <div className="flex shrink-0 items-center gap-0.5 opacity-0 transition-opacity duration-200 focus-within:opacity-100 group-hover:opacity-100">
             <Button
               variant="ghost"
               size="icon"
-              className="h-8 w-8 text-muted-foreground"
+              className="h-8 w-8 rounded-lg text-muted-foreground hover:text-primary"
               onClick={() => onEdit(task)}
               aria-label="Edit task"
             >
@@ -72,7 +87,7 @@ export function TaskItem({ task, onEdit }: TaskItemProps) {
             <Button
               variant="ghost"
               size="icon"
-              className="h-8 w-8 text-muted-foreground hover:text-destructive"
+              className="h-8 w-8 rounded-lg text-muted-foreground hover:bg-destructive/10 hover:text-destructive"
               onClick={() => setConfirmOpen(true)}
               aria-label="Delete task"
             >
@@ -105,9 +120,9 @@ export function TaskItem({ task, onEdit }: TaskItemProps) {
           {deadline && (
             <span
               className={cn(
-                "inline-flex items-center gap-1 text-xs",
+                "inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium",
                 deadline.isOverdue
-                  ? "font-medium text-destructive"
+                  ? "bg-destructive/10 text-destructive"
                   : "text-muted-foreground"
               )}
             >
@@ -129,13 +144,13 @@ export function TaskItem({ task, onEdit }: TaskItemProps) {
         </div>
       </div>
 
-      <div className="shrink-0">
+      <div className="shrink-0 self-center">
         <Select
           aria-label="Task status"
           value={task.status}
           onChange={(e) => handleStatusChange(e.target.value as TaskStatus)}
           disabled={toggle.isPending}
-          className="h-8 w-32 text-xs"
+          className="h-8 w-32 rounded-lg text-xs"
         >
           {TASK_STATUSES.map((s) => (
             <option key={s} value={s}>

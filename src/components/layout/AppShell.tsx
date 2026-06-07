@@ -56,7 +56,9 @@ export function AppShell({ children }: AppShellProps) {
       <div className="flex h-full flex-1 flex-col overflow-hidden">
         <Topbar onMenu={() => setDrawerOpen(true)} />
         <main className="flex-1 overflow-y-auto">
-          <div className="mx-auto w-full max-w-6xl p-4 sm:p-6">{children}</div>
+          <div className="mx-auto w-full max-w-6xl animate-fade-in p-4 sm:p-6 lg:p-8">
+            {children}
+          </div>
         </main>
       </div>
 

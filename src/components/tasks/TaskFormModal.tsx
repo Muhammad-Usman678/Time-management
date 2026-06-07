@@ -181,16 +181,18 @@ export function TaskFormModal({ open, onClose, task }: TaskFormModalProps) {
           control={control}
           name="isDaily"
           render={({ field }) => (
-            <label className="flex cursor-pointer items-center gap-2">
+            <label className="flex cursor-pointer items-center gap-3 rounded-lg border border-border bg-secondary/40 px-3 py-2.5 transition-colors hover:bg-secondary/70">
               <Checkbox
                 checked={field.value}
                 onCheckedChange={field.onChange}
               />
-              <span className="text-sm font-medium text-foreground">
-                Daily recurring task
-              </span>
-              <span className="text-xs text-muted-foreground">
-                (resets every morning)
+              <span className="flex flex-col">
+                <span className="text-sm font-medium text-foreground">
+                  Daily recurring task
+                </span>
+                <span className="text-xs text-muted-foreground">
+                  Resets every morning
+                </span>
               </span>
             </label>
           )}

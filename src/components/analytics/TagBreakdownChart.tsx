@@ -52,15 +52,18 @@ export function TagBreakdownChart({ data }: TagBreakdownChartProps) {
             contentStyle={{
               background: "hsl(var(--popover, var(--card)))",
               border: "1px solid hsl(var(--border))",
-              borderRadius: "0.5rem",
+              borderRadius: "0.75rem",
+              boxShadow:
+                "0 1px 2px -1px rgb(0 0 0 / 0.08), 0 4px 16px -6px rgb(0 0 0 / 0.12)",
               fontSize: 12,
             }}
+            labelStyle={{ color: "hsl(var(--muted-foreground))" }}
             formatter={(_value, _name, item) => [
               formatDuration((item?.payload?.seconds as number) ?? 0),
               item?.payload?.tag as string,
             ]}
           />
-          <Bar dataKey="seconds" radius={[0, 4, 4, 0]} maxBarSize={28}>
+          <Bar dataKey="seconds" radius={[0, 6, 6, 0]} maxBarSize={28}>
             {data.map((entry) => (
               <Cell key={entry.tag} fill={entry.color} />
             ))}

@@ -12,16 +12,28 @@ export interface AuthShellProps {
 
 export function AuthShell({ title, subtitle, children, footer }: AuthShellProps) {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background p-4">
-      <div className="w-full max-w-sm animate-fade-in">
-        <div className="mb-6 flex flex-col items-center gap-2 text-center">
-          <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary text-primary-foreground">
-            <Zap size={22} />
+    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-background p-4">
+      {/* Ambient brand glow */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -top-40 left-1/2 h-[36rem] w-[36rem] -translate-x-1/2 rounded-full brand-gradient opacity-20 blur-3xl"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -bottom-48 right-0 h-[28rem] w-[28rem] rounded-full brand-gradient opacity-15 blur-3xl"
+      />
+
+      <div className="relative w-full max-w-sm animate-fade-in">
+        <div className="mb-6 flex flex-col items-center gap-3 text-center">
+          <div className="icon-chip h-12 w-12 brand-gradient text-white shadow-glow">
+            <Zap size={24} />
           </div>
-          <h1 className="text-xl font-semibold tracking-tight">{APP_NAME}</h1>
+          <h1 className="text-2xl font-semibold tracking-tight text-gradient">
+            {APP_NAME}
+          </h1>
           {subtitle && <p className="text-sm text-muted-foreground">{subtitle}</p>}
         </div>
-        <div className="rounded-lg border border-border bg-card p-6 shadow-sm">
+        <div className="glass rounded-2xl p-6 shadow-glow">
           <h2 className="mb-4 text-lg font-semibold tracking-tight">{title}</h2>
           {children}
         </div>

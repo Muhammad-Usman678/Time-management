@@ -27,9 +27,20 @@ export function MeetingList({
 }: MeetingListProps) {
   if (isLoading) {
     return (
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2.5">
         {Array.from({ length: 4 }).map((_, i) => (
-          <Skeleton key={i} className="h-20 w-full" />
+          <div
+            key={i}
+            className="flex items-start gap-3 rounded-xl border border-border bg-card p-4 shadow-soft"
+          >
+            <Skeleton className="h-10 w-10 shrink-0 rounded-xl" />
+            <div className="flex flex-1 flex-col gap-2">
+              <Skeleton className="h-4 w-1/2 rounded-md" />
+              <Skeleton className="h-3 w-1/3 rounded-md" />
+              <Skeleton className="h-3 w-3/4 rounded-md" />
+            </div>
+            <Skeleton className="h-8 w-16 shrink-0 rounded-lg" />
+          </div>
         ))}
       </div>
     );

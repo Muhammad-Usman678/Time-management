@@ -28,10 +28,12 @@ export function ActiveTimerCard() {
 
   if (!isActive) {
     return (
-      <Card>
+      <Card className="card-hover">
         <CardHeader className="pb-3">
           <CardTitle className="flex items-center gap-2 text-base">
-            <Timer size={18} className="text-muted-foreground" />
+            <span className="icon-chip h-8 w-8 bg-primary/10 text-primary">
+              <Timer size={16} />
+            </span>
             Focus timer
           </CardTitle>
         </CardHeader>
@@ -41,7 +43,7 @@ export function ActiveTimerCard() {
           </p>
           <Link
             href="/focus"
-            className={cn(buttonVariants({ size: "sm" }), "w-full")}
+            className={cn(buttonVariants({ size: "sm" }), "h-9 w-full")}
           >
             <Play size={16} />
             Start a focus session
@@ -54,16 +56,22 @@ export function ActiveTimerCard() {
   const running = status === "running";
 
   return (
-    <Card>
+    <Card className="relative overflow-hidden shadow-glow ring-1 ring-primary/30">
+      <span
+        aria-hidden
+        className="brand-gradient pointer-events-none absolute inset-x-0 top-0 h-1"
+      />
       <CardHeader className="pb-3">
         <CardTitle className="flex items-center gap-2 text-base">
-          <Timer size={18} className="text-muted-foreground" />
+          <span className="icon-chip brand-gradient h-8 w-8 text-primary-foreground shadow-soft">
+            <Timer size={16} />
+          </span>
           {PHASE_LABELS[phase]}
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="space-y-1">
-          <p className="text-4xl font-semibold tabular-nums tracking-tight">
+          <p className="text-gradient font-mono text-4xl font-semibold tabular-nums tracking-tight">
             {formatClock(remainingSeconds)}
           </p>
           <p className="truncate text-sm text-muted-foreground">

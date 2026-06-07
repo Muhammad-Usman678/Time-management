@@ -73,13 +73,20 @@ export default function TasksPage() {
   }
 
   return (
-    <div className="mx-auto flex w-full max-w-4xl flex-col gap-6">
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-        <div className="flex flex-col gap-1">
-          <h1 className="text-2xl font-semibold tracking-tight">Tasks</h1>
-          <p className="text-sm text-muted-foreground">
-            Capture, prioritize, and track your research to-dos.
-          </p>
+    <div className="mx-auto flex w-full max-w-4xl animate-fade-in flex-col gap-6">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+        <div className="flex items-start gap-3">
+          <div className="icon-chip h-11 w-11 bg-primary/10 text-primary shadow-soft">
+            <ListTodo size={22} />
+          </div>
+          <div className="flex flex-col gap-1">
+            <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">
+              <span className="text-gradient">Tasks</span>
+            </h1>
+            <p className="text-sm text-muted-foreground">
+              Capture, prioritize, and track your research to-dos.
+            </p>
+          </div>
         </div>
         <Button onClick={openCreate} className="self-start">
           <Plus size={18} />

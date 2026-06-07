@@ -32,6 +32,12 @@ export function FocusTrendChart({ data }: FocusTrendChartProps) {
     <div className="h-[260px] w-full">
       <ResponsiveContainer width="100%" height={260}>
         <BarChart data={chartData} margin={{ top: 8, right: 8, left: -16, bottom: 0 }}>
+          <defs>
+            <linearGradient id="focusTrendGradient" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="hsl(var(--brand-2))" />
+              <stop offset="100%" stopColor="hsl(var(--primary))" />
+            </linearGradient>
+          </defs>
           <CartesianGrid
             strokeDasharray="3 3"
             stroke="hsl(var(--border))"
@@ -57,9 +63,12 @@ export function FocusTrendChart({ data }: FocusTrendChartProps) {
             contentStyle={{
               background: "hsl(var(--popover, var(--card)))",
               border: "1px solid hsl(var(--border))",
-              borderRadius: "0.5rem",
+              borderRadius: "0.75rem",
+              boxShadow:
+                "0 1px 2px -1px rgb(0 0 0 / 0.08), 0 4px 16px -6px rgb(0 0 0 / 0.12)",
               fontSize: 12,
             }}
+            labelStyle={{ color: "hsl(var(--muted-foreground))" }}
             labelFormatter={(value: string) => formatDayLabel(value)}
             formatter={(_value, _name, item) => [
               formatDuration((item?.payload?.seconds as number) ?? 0),
@@ -68,8 +77,8 @@ export function FocusTrendChart({ data }: FocusTrendChartProps) {
           />
           <Bar
             dataKey="hours"
-            fill="hsl(var(--primary))"
-            radius={[4, 4, 0, 0]}
+            fill="url(#focusTrendGradient)"
+            radius={[6, 6, 0, 0]}
             maxBarSize={48}
           />
         </BarChart>

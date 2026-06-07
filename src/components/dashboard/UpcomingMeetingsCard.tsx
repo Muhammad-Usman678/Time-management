@@ -26,10 +26,15 @@ export function UpcomingMeetingsCard({
   return (
     <Card>
       <CardHeader className="flex-row items-center justify-between gap-2 space-y-0">
-        <CardTitle className="text-base">Upcoming meetings</CardTitle>
+        <div className="flex items-center gap-3">
+          <span className="icon-chip h-9 w-9 bg-brand-2/10 text-brand-2">
+            <CalendarClock size={18} />
+          </span>
+          <CardTitle className="text-base">Upcoming meetings</CardTitle>
+        </div>
         <Link
           href="/meetings"
-          className="text-sm font-medium text-primary hover:underline"
+          className="rounded-lg px-2 py-1 text-sm font-medium text-primary transition-all duration-200 hover:bg-primary/10"
         >
           View all
         </Link>
@@ -48,11 +53,11 @@ export function UpcomingMeetingsCard({
             description="Scheduled meetings will show up here."
           />
         ) : (
-          <ul className="divide-y divide-border">
+          <ul className="-mx-2 space-y-0.5">
             {meetings.map((meeting) => (
               <li
                 key={meeting.id}
-                className="flex items-center justify-between gap-3 py-2.5"
+                className="flex items-center justify-between gap-3 rounded-lg px-2 py-2.5 transition-colors duration-200 hover:bg-secondary/60"
               >
                 <div className="min-w-0 space-y-0.5">
                   <p className="truncate text-sm font-medium">
@@ -67,9 +72,9 @@ export function UpcomingMeetingsCard({
                     href={meeting.link}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex shrink-0 items-center gap-1 text-sm font-medium text-primary hover:underline"
+                    className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-primary/10 px-3 py-1.5 text-xs font-medium text-primary transition-all duration-200 hover:bg-primary/20 active:scale-[0.98]"
                   >
-                    <Video size={16} />
+                    <Video size={14} />
                     Join
                   </a>
                 )}

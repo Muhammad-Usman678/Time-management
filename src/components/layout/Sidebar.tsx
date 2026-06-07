@@ -37,9 +37,11 @@ export function Sidebar({ onNavigate }: SidebarProps) {
 
   return (
     <div className="flex h-full w-64 flex-col border-r border-border bg-card">
-      <div className="flex h-14 items-center gap-2 border-b border-border px-5">
-        <Zap className="text-primary" size={22} />
-        <span className="text-sm font-semibold tracking-tight">{APP_NAME}</span>
+      <div className="flex h-14 items-center gap-2.5 border-b border-border px-5">
+        <div className="icon-chip h-9 w-9 brand-gradient text-white shadow-soft">
+          <Zap size={18} />
+        </div>
+        <span className="text-base font-semibold tracking-tight">{APP_NAME}</span>
       </div>
 
       <nav className="flex flex-1 flex-col gap-1 p-3">
@@ -55,9 +57,9 @@ export function Sidebar({ onNavigate }: SidebarProps) {
               href={item.href}
               onClick={onNavigate}
               className={cn(
-                "flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors",
+                "flex items-center gap-3 rounded-lg px-3.5 py-2.5 text-sm font-medium transition-all duration-200",
                 active
-                  ? "bg-accent text-accent-foreground"
+                  ? "brand-gradient text-primary-foreground shadow-soft"
                   : "text-muted-foreground hover:bg-secondary hover:text-secondary-foreground"
               )}
             >

@@ -21,26 +21,32 @@ export function TimerControls() {
   }
 
   return (
-    <div className="flex items-center justify-center gap-3">
+    <div className="flex items-center justify-center gap-4">
       <Button
-        variant="outline"
+        variant="ghost"
         size="icon"
         onClick={reset}
         aria-label="Reset timer"
+        className="h-11 w-11 rounded-full text-muted-foreground hover:text-foreground"
       >
         <RotateCcw size={18} />
       </Button>
 
-      <Button size="lg" className="min-w-32" onClick={toggle}>
-        {running ? <Pause size={18} /> : <Play size={18} />}
+      <Button
+        size="lg"
+        onClick={toggle}
+        className="h-14 min-w-40 rounded-full px-8 text-base shadow-glow"
+      >
+        {running ? <Pause size={20} /> : <Play size={20} />}
         {running ? "Pause" : status === "paused" ? "Resume" : "Start"}
       </Button>
 
       <Button
-        variant="outline"
+        variant="ghost"
         size="icon"
         onClick={skip}
         aria-label="Skip phase"
+        className="h-11 w-11 rounded-full text-muted-foreground hover:text-foreground"
       >
         <SkipForward size={18} />
       </Button>

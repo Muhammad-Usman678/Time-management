@@ -46,17 +46,22 @@ export function TodayTasksCard({ tasks, loading }: TodayTasksCardProps) {
   return (
     <Card>
       <CardHeader className="flex-row items-center justify-between gap-2 space-y-0">
-        <div className="space-y-1">
-          <CardTitle className="text-base">Today&apos;s tasks</CardTitle>
-          {total > 0 && (
-            <p className="text-sm text-muted-foreground">
-              {done} of {total} done
-            </p>
-          )}
+        <div className="flex items-center gap-3">
+          <span className="icon-chip h-9 w-9 bg-primary/10 text-primary">
+            <ListTodo size={18} />
+          </span>
+          <div className="space-y-0.5">
+            <CardTitle className="text-base">Today&apos;s tasks</CardTitle>
+            {total > 0 && (
+              <p className="text-sm text-muted-foreground">
+                {done} of {total} done
+              </p>
+            )}
+          </div>
         </div>
         <Link
           href="/tasks"
-          className="text-sm font-medium text-primary hover:underline"
+          className="rounded-lg px-2 py-1 text-sm font-medium text-primary transition-all duration-200 hover:bg-primary/10"
         >
           View all
         </Link>
@@ -75,12 +80,15 @@ export function TodayTasksCard({ tasks, loading }: TodayTasksCardProps) {
             description="Daily tasks and anything due today will appear here."
           />
         ) : (
-          <ul className="divide-y divide-border">
+          <ul className="-mx-2 space-y-0.5">
             {tasks.map((task) => {
               const isDone = task.status === "done";
               const dl = deadlineInfo(task.deadline, task.status);
               return (
-                <li key={task.id} className="flex items-center gap-3 py-2.5">
+                <li
+                  key={task.id}
+                  className="flex items-center gap-3 rounded-lg px-2 py-2.5 transition-colors duration-200 hover:bg-secondary/60"
+                >
                   <Checkbox
                     checked={isDone}
                     disabled={toggle.isPending}

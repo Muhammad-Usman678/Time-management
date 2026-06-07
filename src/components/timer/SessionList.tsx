@@ -38,11 +38,16 @@ export function SessionList() {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex items-baseline justify-between">
-        <h2 className="text-sm font-semibold tracking-tight">Today</h2>
-        <span className="text-xs text-muted-foreground">
-          {formatDuration(totalSeconds)} focused
-        </span>
+      <div className="flex flex-col gap-1">
+        <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+          Today
+        </h2>
+        <div className="flex items-baseline gap-2">
+          <span className="text-gradient text-2xl font-semibold tracking-tight">
+            {formatDuration(totalSeconds)}
+          </span>
+          <span className="text-xs text-muted-foreground">focused</span>
+        </div>
       </div>
 
       {isLoading ? (
@@ -62,8 +67,14 @@ export function SessionList() {
           {sessions.map((session) => (
             <li
               key={session.id}
-              className="flex items-center gap-3 rounded-lg border border-border bg-card p-3"
+              className="card-hover group flex animate-fade-in items-center gap-3 rounded-xl border border-border bg-card p-3 shadow-soft"
             >
+              <span
+                className="icon-chip h-10 w-10 shrink-0 bg-primary/10 text-primary"
+                aria-hidden
+              >
+                <Clock size={18} />
+              </span>
               <div className="flex min-w-0 flex-1 flex-col gap-1">
                 <span className="truncate text-sm font-medium">
                   {session.task?.title ?? "No task"}
@@ -83,7 +94,7 @@ export function SessionList() {
               <Button
                 variant="ghost"
                 size="icon"
-                className="h-8 w-8 shrink-0 text-muted-foreground hover:text-destructive"
+                className="h-8 w-8 shrink-0 rounded-full text-muted-foreground opacity-0 transition-opacity hover:text-destructive focus-visible:opacity-100 group-hover:opacity-100"
                 onClick={() => setPendingDelete(session)}
                 aria-label="Delete session"
               >

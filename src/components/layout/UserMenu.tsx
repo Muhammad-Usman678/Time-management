@@ -18,7 +18,7 @@ export function UserMenu() {
         type="button"
         onClick={() => setOpen((o) => !o)}
         aria-label="Account menu"
-        className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90"
+        className="flex h-8 w-8 items-center justify-center rounded-full brand-gradient text-sm font-semibold text-white shadow-soft transition-all duration-200 hover:shadow-glow hover:brightness-105 active:scale-[0.98]"
       >
         {initial}
       </button>
@@ -26,7 +26,7 @@ export function UserMenu() {
       {open && (
         <>
           <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
-          <div className="absolute right-0 z-50 mt-2 w-56 overflow-hidden rounded-md border border-border bg-card p-1 shadow-lg animate-scale-in">
+          <div className="glass absolute right-0 z-50 mt-2 w-56 overflow-hidden rounded-xl p-1 shadow-glow animate-scale-in">
             <div className="px-3 py-2">
               <p className="truncate text-sm font-medium">
                 {user.name ?? "Account"}
@@ -40,7 +40,7 @@ export function UserMenu() {
               type="button"
               onClick={() => logout.mutate()}
               disabled={logout.isPending}
-              className="flex w-full items-center gap-2 rounded-sm px-3 py-2 text-sm text-destructive transition-colors hover:bg-secondary disabled:opacity-60"
+              className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm text-destructive transition-colors hover:bg-secondary disabled:opacity-60"
             >
               <LogOut size={16} />
               {logout.isPending ? "Signing out…" : "Sign out"}

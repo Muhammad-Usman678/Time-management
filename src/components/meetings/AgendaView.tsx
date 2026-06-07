@@ -47,13 +47,19 @@ export function AgendaView({ meetings }: AgendaViewProps) {
   const groups = groupByDay(meetings);
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-8">
       {groups.map((group) => (
-        <section key={group.key} className="flex flex-col gap-2">
-          <h2 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-            {group.label}
-          </h2>
-          <div className="flex flex-col gap-2">
+        <section key={group.key} className="flex flex-col gap-3">
+          <div className="glass sticky top-2 z-10 -mx-1 flex items-center gap-3 rounded-full px-3 py-1.5">
+            <h2 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+              {group.label}
+            </h2>
+            <span className="h-px flex-1 bg-border/70" />
+            <span className="rounded-full bg-secondary px-2 py-0.5 text-[11px] font-medium tabular-nums text-secondary-foreground">
+              {group.meetings.length}
+            </span>
+          </div>
+          <div className="flex flex-col gap-2.5">
             {group.meetings.map((meeting) => (
               <MeetingItem key={meeting.id} meeting={meeting} />
             ))}

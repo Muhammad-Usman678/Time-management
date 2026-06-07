@@ -52,6 +52,15 @@ const config: Config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        "brand-2": "hsl(var(--brand-2))",
+      },
+      backgroundImage: {
+        "brand-gradient":
+          "linear-gradient(135deg, hsl(var(--primary)), hsl(var(--brand-2)))",
+      },
+      boxShadow: {
+        soft: "0 1px 2px -1px rgb(0 0 0 / 0.08), 0 4px 16px -6px rgb(0 0 0 / 0.12)",
+        glow: "0 10px 30px -10px hsl(var(--primary) / 0.45)",
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -71,10 +80,19 @@ const config: Config = {
           from: { opacity: "0", transform: "scale(0.97)" },
           to: { opacity: "1", transform: "scale(1)" },
         },
+        float: {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-6px)" },
+        },
+        shimmer: {
+          "100%": { backgroundPosition: "200% 0" },
+        },
       },
       animation: {
         "fade-in": "fade-in 0.2s ease-out",
         "scale-in": "scale-in 0.15s ease-out",
+        float: "float 6s ease-in-out infinite",
+        shimmer: "shimmer 1.5s linear infinite",
       },
     },
   },

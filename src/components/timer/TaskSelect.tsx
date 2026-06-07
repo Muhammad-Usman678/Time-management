@@ -29,13 +29,19 @@ export function TaskSelect() {
   }
 
   return (
-    <div className="flex w-full max-w-xs flex-col gap-1.5">
-      <Label htmlFor="focus-task">Focusing on</Label>
+    <div className="flex w-full max-w-xs flex-col gap-2">
+      <Label
+        htmlFor="focus-task"
+        className="text-xs font-medium uppercase tracking-wide text-muted-foreground"
+      >
+        Focusing on
+      </Label>
       <Select
         id="focus-task"
         value={taskId ?? ""}
         onChange={onChange}
         disabled={isLoading}
+        className="shadow-soft"
       >
         <option value="">No task</option>
         {tasks?.map((t) => (
@@ -45,7 +51,7 @@ export function TaskSelect() {
         ))}
       </Select>
       {taskTitle && (
-        <p className="truncate text-xs text-muted-foreground">
+        <p className="animate-fade-in truncate rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
           Attributing focus to: {taskTitle}
         </p>
       )}

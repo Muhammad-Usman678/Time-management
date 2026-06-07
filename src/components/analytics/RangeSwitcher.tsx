@@ -20,6 +20,7 @@ export function RangeSwitcher({ range, onRangeChange }: RangeSwitcherProps) {
       tabs={RANGE_TABS}
       value={range}
       onValueChange={(v) => onRangeChange(v as AnalyticsRange)}
+      className="glass shadow-soft"
     />
   );
 }

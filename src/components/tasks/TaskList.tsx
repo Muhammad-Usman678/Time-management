@@ -18,9 +18,12 @@ export interface TaskListProps {
 export function TaskList({ tasks, loading, filtered, onEdit }: TaskListProps) {
   if (loading) {
     return (
-      <Card className="divide-y divide-border">
+      <div className="flex flex-col gap-2.5">
         {Array.from({ length: 4 }).map((_, i) => (
-          <div key={i} className="flex items-start gap-3 px-4 py-3">
+          <Card
+            key={i}
+            className="flex items-start gap-3 px-4 py-3.5 pl-5"
+          >
             <Skeleton className="h-5 w-5 rounded-sm" />
             <div className="flex flex-1 flex-col gap-2">
               <Skeleton className="h-4 w-1/2" />
@@ -30,15 +33,16 @@ export function TaskList({ tasks, loading, filtered, onEdit }: TaskListProps) {
                 <Skeleton className="h-5 w-20 rounded-full" />
               </div>
             </div>
-          </div>
+            <Skeleton className="h-8 w-32 rounded-lg" />
+          </Card>
         ))}
-      </Card>
+      </div>
     );
   }
 
   if (tasks.length === 0) {
     return (
-      <Card className="p-2">
+      <Card className="animate-fade-in p-2">
         <EmptyState
           icon={filtered ? ListTodo : CheckCircle2}
           title={filtered ? "No matching tasks" : "All clear"}
@@ -53,10 +57,12 @@ export function TaskList({ tasks, loading, filtered, onEdit }: TaskListProps) {
   }
 
   return (
-    <Card className="divide-y divide-border">
+    <div className="flex flex-col gap-2.5">
       {tasks.map((task) => (
-        <TaskItem key={task.id} task={task} onEdit={onEdit} />
+        <div key={task.id} className="animate-fade-in">
+          <TaskItem task={task} onEdit={onEdit} />
+        </div>
       ))}
-    </Card>
+    </div>
   );
 }

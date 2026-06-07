@@ -11,10 +11,17 @@ export function PriorityBadge({ priority, className }: PriorityBadgeProps) {
   return (
     <Badge
       variant="outline"
-      className={cn(PRIORITY_STYLES[priority], className)}
+      className={cn(
+        "gap-1.5 px-2.5 py-0.5 font-medium tracking-tight transition-colors",
+        PRIORITY_STYLES[priority],
+        className
+      )}
     >
       <span
-        className={cn("h-1.5 w-1.5 rounded-full", PRIORITY_DOT[priority])}
+        className={cn(
+          "h-1.5 w-1.5 rounded-full ring-2 ring-current/15",
+          PRIORITY_DOT[priority]
+        )}
         aria-hidden
       />
       {PRIORITY_LABELS[priority]}

@@ -10,9 +10,11 @@ import { SessionList } from "@/components/timer/SessionList";
 
 export default function FocusPage() {
   return (
-    <div className="mx-auto flex w-full max-w-5xl flex-col gap-6">
-      <div>
-        <h1 className="text-2xl font-semibold tracking-tight">Focus</h1>
+    <div className="mx-auto flex w-full max-w-5xl animate-fade-in flex-col gap-8">
+      <div className="flex flex-col gap-1.5">
+        <h1 className="text-3xl font-semibold tracking-tight">
+          <span className="text-gradient">Focus</span>
+        </h1>
         <p className="text-sm text-muted-foreground">
           Deep-work mode. Pick a task, start the timer, and stay in flow.
         </p>
@@ -20,12 +22,12 @@ export default function FocusPage() {
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_20rem]">
         {/* Timer — the visual anchor. */}
-        <Card>
-          <CardContent className="flex flex-col items-center gap-8 py-10">
+        <Card className="glass overflow-hidden shadow-soft">
+          <CardContent className="flex flex-col items-center gap-9 px-6 py-12">
             <ModeSwitcher />
             <TimerDisplay />
             <TimerControls />
-            <div className="flex w-full flex-col items-center gap-4">
+            <div className="flex w-full flex-col items-center gap-5 border-t border-border/60 pt-8">
               <TaskSelect />
               <PomodoroSettings />
             </div>
@@ -33,7 +35,7 @@ export default function FocusPage() {
         </Card>
 
         {/* Today's sessions. */}
-        <Card>
+        <Card className="glass shadow-soft">
           <CardContent className="py-6">
             <SessionList />
           </CardContent>

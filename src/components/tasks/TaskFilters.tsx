@@ -26,10 +26,10 @@ export interface TaskFiltersProps {
 export function TaskFilters({ value, onChange }: TaskFiltersProps) {
   return (
     <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
-      <div className="relative flex-1">
+      <div className="group relative flex-1">
         <Search
           size={16}
-          className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
+          className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground transition-colors group-focus-within:text-primary"
         />
         <Input
           placeholder="Search tasks…"

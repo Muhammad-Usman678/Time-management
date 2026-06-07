@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { format } from "date-fns";
+import { Video } from "lucide-react";
 import { Modal } from "@/components/ui/modal";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -132,7 +133,7 @@ export function MeetingFormModal({
     >
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col gap-4"
+        className="flex animate-fade-in flex-col gap-4"
       >
         <div className="flex flex-col gap-1.5">
           <Label htmlFor="meeting-title">Title</Label>
@@ -198,7 +199,10 @@ export function MeetingFormModal({
           <div className="flex items-center justify-between gap-2">
             <Label htmlFor="meeting-link">Link</Label>
             {linkValue.trim() && (
-              <Badge variant="secondary">{LINK_LABELS[detected]}</Badge>
+              <Badge variant={detected === "none" ? "secondary" : "default"}>
+                <Video size={12} />
+                {LINK_LABELS[detected]}
+              </Badge>
             )}
           </div>
           <Input
@@ -224,7 +228,7 @@ export function MeetingFormModal({
           )}
         </div>
 
-        <div className="mt-2 flex items-center justify-end gap-2">
+        <div className="mt-2 flex items-center justify-end gap-2 border-t border-border/70 pt-4">
           <Button
             type="button"
             variant="outline"

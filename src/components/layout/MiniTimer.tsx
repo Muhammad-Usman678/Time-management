@@ -44,12 +44,19 @@ export function MiniTimer() {
     <Link
       href="/focus"
       className={cn(
-        "flex items-center gap-2 rounded-full border px-2 py-1 transition-colors",
+        "flex items-center gap-2 rounded-full border bg-card/80 px-2.5 py-1 shadow-soft backdrop-blur transition-all duration-200",
         running
-          ? "border-primary/40 bg-primary/10 text-primary"
-          : "border-border bg-secondary text-secondary-foreground"
+          ? "border-primary/40 text-primary"
+          : "border-border text-muted-foreground"
       )}
     >
+      <span
+        className={cn(
+          "h-2 w-2 shrink-0 rounded-full transition-all",
+          running ? "brand-gradient shadow-glow" : "bg-muted-foreground/40"
+        )}
+        aria-hidden="true"
+      />
       <span className="hidden text-xs font-medium sm:inline">
         {PHASE_LABELS[phase]}
       </span>

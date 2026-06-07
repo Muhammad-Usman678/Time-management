@@ -37,6 +37,24 @@ export function ProductiveHoursChart({ data }: ProductiveHoursChartProps) {
     <div className="h-[260px] w-full">
       <ResponsiveContainer width="100%" height={260}>
         <BarChart data={chartData} margin={{ top: 8, right: 8, left: -16, bottom: 0 }}>
+          <defs>
+            <linearGradient id="hoursPeakGradient" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="hsl(var(--brand-2))" />
+              <stop offset="100%" stopColor="hsl(var(--primary))" />
+            </linearGradient>
+            <linearGradient id="hoursIdleGradient" x1="0" y1="0" x2="0" y2="1">
+              <stop
+                offset="0%"
+                stopColor="hsl(var(--primary))"
+                stopOpacity={0.35}
+              />
+              <stop
+                offset="100%"
+                stopColor="hsl(var(--primary))"
+                stopOpacity={0.18}
+              />
+            </linearGradient>
+          </defs>
           <CartesianGrid
             strokeDasharray="3 3"
             stroke="hsl(var(--border))"
@@ -61,21 +79,27 @@ export function ProductiveHoursChart({ data }: ProductiveHoursChartProps) {
             contentStyle={{
               background: "hsl(var(--popover, var(--card)))",
               border: "1px solid hsl(var(--border))",
-              borderRadius: "0.5rem",
+              borderRadius: "0.75rem",
+              boxShadow:
+                "0 1px 2px -1px rgb(0 0 0 / 0.08), 0 4px 16px -6px rgb(0 0 0 / 0.12)",
               fontSize: 12,
             }}
+            labelStyle={{ color: "hsl(var(--muted-foreground))" }}
             labelFormatter={(label: string) => label}
             formatter={(_value, _name, item) => [
               formatDuration((item?.payload?.seconds as number) ?? 0),
               "Focus",
             ]}
           />
-          <Bar dataKey="minutes" radius={[4, 4, 0, 0]} maxBarSize={28}>
+          <Bar dataKey="minutes" radius={[6, 6, 0, 0]} maxBarSize={28}>
             {chartData.map((d) => (
               <Cell
                 key={d.hour}
-                fill={d.isPeak ? "hsl(var(--primary))" : "hsl(var(--muted-foreground))"}
-                fillOpacity={d.isPeak ? 1 : 0.35}
+                fill={
+                  d.isPeak
+                    ? "url(#hoursPeakGradient)"
+                    : "url(#hoursIdleGradient)"
+                }
               />
             ))}
           </Bar>

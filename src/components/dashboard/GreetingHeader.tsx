@@ -14,12 +14,14 @@ export function GreetingHeader() {
   const greeting = greetingFor(now.getHours());
 
   return (
-    <header className="space-y-1">
-      <p className="text-sm text-muted-foreground">
+    <header className="animate-fade-in space-y-1.5">
+      <p className="text-sm font-medium uppercase tracking-wide text-muted-foreground">
         {formatDate(now.toISOString())}
       </p>
-      <h1 className="text-2xl font-semibold tracking-tight">{greeting}</h1>
-      <p className="text-sm text-muted-foreground">
+      <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">
+        <span className="text-gradient">{greeting}</span>
+      </h1>
+      <p className="text-base text-muted-foreground">
         One focused block at a time. Here is your day.
       </p>
     </header>

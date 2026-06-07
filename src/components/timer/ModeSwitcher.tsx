@@ -19,16 +19,25 @@ export function ModeSwitcher() {
   const locked = status !== "idle";
 
   return (
-    <div className="flex flex-col items-center gap-1.5">
-      <div className={locked ? "pointer-events-none opacity-50" : undefined}>
+    <div className="flex flex-col items-center gap-2">
+      <div
+        className={
+          locked
+            ? "pointer-events-none opacity-50 transition-opacity duration-200"
+            : "transition-opacity duration-200"
+        }
+      >
         <Tabs
           tabs={MODE_TABS}
           value={mode}
           onValueChange={(v) => setMode(v as TimerMode)}
+          className="glass shadow-soft"
         />
       </div>
       {locked && (
-        <p className="text-xs text-muted-foreground">Reset to switch mode</p>
+        <p className="animate-fade-in text-xs text-muted-foreground">
+          Reset to switch mode
+        </p>
       )}
     </div>
   );
