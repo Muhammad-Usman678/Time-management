@@ -190,21 +190,20 @@ Open **http://localhost:3000**. You'll land on a dashboard pre‑populated with 
 
 ---
 
-## 🐘 Switching to PostgreSQL (production)
+## 🐘 PostgreSQL (production)
 
-1. Start a database (or use any hosted Postgres):
-   ```bash
-   docker compose up -d        # postgres:16 on localhost:5432
-   ```
-2. In [`prisma/schema.prisma`](prisma/schema.prisma) change one line:
-   ```prisma
-   datasource db { provider = "postgresql" url = env("DATABASE_URL") }
-   ```
-3. In `.env` set:
-   ```
-   DATABASE_URL="postgresql://phd:phd@localhost:5432/phd_productivity?schema=public"
-   ```
-4. `npm run setup` again. Done — no model or query changes required.
+No schema editing required — the datasource provider is selected from an env var
+by [`scripts/use-db-provider.mjs`](scripts/use-db-provider.mjs) at build time.
+Just set two variables:
+
+```
+DATABASE_PROVIDER="postgresql"
+DATABASE_URL="postgresql://USER:PASSWORD@HOST:5432/DB?sslmode=require"
+```
+
+For a local Postgres: `docker compose up -d` (see [`docker-compose.yml`](docker-compose.yml)),
+set the two vars in `.env`, then `npm run setup`. SQLite ⇄ Postgres needs no model
+or query changes — the schema is portable by design.
 
 ---
 
@@ -220,10 +219,35 @@ A calm, academic aesthetic: indigo primary on slate neutrals, generous whitespac
 
 ---
 
-## 📦 Deployment
+## 📦 Deploy to a live URL (Vercel + Neon)
 
-- **Vercel** — push the repo, set `DATABASE_URL` (and a hosted Postgres), build runs `prisma generate && next build`.
-- **Docker / any Node host** — `npm run build && npm start` behind your process manager, with `DATABASE_URL` pointing at Postgres.
+The app needs a server + database to run, so it's hosted on Vercel (Next.js)
+with a free Neon Postgres. ~5 minutes:
+
+1. **Database** — create a free Postgres at [neon.tech](https://neon.tech) (or use
+   Vercel's Storage → Postgres). Copy the connection string (the *pooled* one).
+2. **Import** — go to [vercel.com/new](https://vercel.com/new), import
+   `Muhammad-Usman678/Time-management`.
+3. **Environment variables** (Project → Settings → Environment Variables):
+   ```
+   DATABASE_PROVIDER = postgresql
+   DATABASE_URL      = <your Neon connection string>
+   AUTH_ENABLED      = false
+   ```
+4. **Build command** (Settings → Build & Output) — set to:
+   ```
+   npm run vercel-build
+   ```
+   (runs `use-db-provider` → `prisma generate` → `prisma db push` → `next build`,
+   so the database tables are created on first deploy).
+5. **Deploy.** Vercel gives you a public URL like
+   `https://time-management-<hash>.vercel.app`.
+
+> Optional: to load demo data into the live DB once, run locally with the prod
+> `DATABASE_URL` + `DATABASE_PROVIDER=postgresql` in your shell: `npm run db:seed`.
+
+**Other hosts** (Railway/Render/Fly/any Node server): set the same two DB env
+vars and use build `npm run vercel-build`, start `npm start`.
 
 ---
 
