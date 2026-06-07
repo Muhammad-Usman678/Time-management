@@ -22,6 +22,9 @@ prisma/*.db
 .env
 .env*.local
 
+# vercel
+.vercel
+
 # misc
 .DS_Store
 *.pem
